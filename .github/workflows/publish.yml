@@ -26,4 +26,4 @@ jobs:
       - name: Upload to Release
         uses: softprops/action-gh-release@v1
         with:
-          files: SharpHound-${{ github.ref_name }}Release.zip
+          files: $PWD/SharpHound/bin/Release/net462/SharpHound-${{ github.ref_name }}Release.zip
