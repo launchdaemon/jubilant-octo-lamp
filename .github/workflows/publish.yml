@@ -22,7 +22,7 @@ jobs:
           dotnet restore .
           dotnet build -c Release
       - name: Zip
-        run: 7z a -tzip -mx9 SharpHound-${{ github.ref_name }}.zip $PWD/bin/Release/net462/*
+        run: 7z a -tzip -mx9 SharpHound-${{ github.ref_name }}.zip $PWD/SharpHound/bin/Release/net462/*
       - name: Upload to Release
         uses: softprops/action-gh-release@v1
         with:
