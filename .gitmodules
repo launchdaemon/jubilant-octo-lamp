@@ -1,0 +1,3 @@
+[submodule "SharpHound"]
+	path = SharpHound
+	url = https://github.com/BloodHoundAD/SharpHound
