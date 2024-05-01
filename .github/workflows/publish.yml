@@ -1,0 +1,36 @@
+name: Publish
+on:
+  push:
+    tags:
+      - v*.*.*
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    name: Build Release
+
+    steps:
+      - name: Checkout SharpHound
+        uses: actions/checkout@v4
+        with:
+          repository: BloodHoundAD/SharpHound
+          path: SharpHound
+      
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 5.0.x
+
+      - name: Build SharpHound
+        run: cd SharpHound
+        run: dotnet restore .
+        run: dotnet build -c Release
+
+      - name: Zip
+        run: 7z a -tzip -mx9 SharpHound-${{ github.ref_name }}.zip $PWD/bin/Release/net462/*
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: SharpHound-${{ github.ref_name }}Release.zip
