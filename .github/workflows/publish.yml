@@ -22,9 +22,13 @@ jobs:
         with:
           dotnet-version: 5.0.x
 
-      - name: Build SharpHound
+      - name: cd to SharpHound
         run: cd SharpHound
+
+      - name: Restore dependencies
         run: dotnet restore .
+
+      - name: Build SharpHound
         run: dotnet build -c Release
 
       - name: Zip
