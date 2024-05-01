@@ -20,12 +20,11 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 5.0.x
-      - name: cd into SharpHound
-        run: cd SharpHound
-      - name: Restore dotnet dependencies
-        run: dotnet restore .
-      - name: Build dotnet release
-        run: dotnet build -c Release
+      - name: cd into SharpHound, restore dependencies and build release
+        run: |
+          cd SharpHound
+          dotnet restore .
+          dotnet build -c Release
       - name: Zip
         # https://michael-mckenna.com/how-to-upload-file-to-github-release-in-a-workflow/
         run: |
