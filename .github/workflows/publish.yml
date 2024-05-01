@@ -24,9 +24,9 @@ jobs:
       - name: Zip
         run: |
           dir
-          7z a -tzip -mx9 SharpHound-${{ github.ref_name }}.zip $PWD/SharpHound/bin/Release/net462/*
+          7z a -tzip -mx9 $PWD/SharpHound.zip $PWD/SharpHound/bin/Release/net462/*
           dir
       - name: Upload to Release
         uses: softprops/action-gh-release@v1
         with:
-          files: $PWD/SharpHound-${{ github.ref_name }}Release.zip
+          files: $PWD/SharpHound.zip
