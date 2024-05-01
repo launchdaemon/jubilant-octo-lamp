@@ -29,8 +29,8 @@ jobs:
           dir
           7z a -tzip -mx9 $PWD/SharpHound.zip $PWD/SharpHound/bin/Release/net462/*
           dir
-          echo ${{github.event.release.tag_name}}
-          gh release upload ${{github.event.release.tag_name}} $PWD/SharpHound.zip
+          gh release upload ${{github.ref_name}} $PWD/SharpHound.zip
+        #gh release upload ${{github.event.release.tag_name}} $PWD/SharpHound.zip
         env:
           GITHUB_TOKEN: ${{ github.TOKEN }}
       #- name: Upload to Release
