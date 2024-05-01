@@ -12,24 +12,28 @@ jobs:
       - name: Checkout SharpHound
         uses: actions/checkout@v4
         with:
-          repository: BloodHoundAD/SharpHound
-          path: SharpHound
+          submodules: recursive
+        #with:
+        #  repository: BloodHoundAD/SharpHound
+        #  path: SharpHound
       - name: Setup dotnet
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 5.0.x
-      - name: Build SharpHound
-        run: |
-          cd SharpHound
-          dotnet restore .
-          dotnet build -c Release
+      - name: cd into SharpHound
+        run: cd SharpHound
+      - name: Restore dotnet dependencies
+        run: dotnet restore .
+      - name: Build dotnet release
+        run: dotnet build -c Release
       - name: Zip
         # https://michael-mckenna.com/how-to-upload-file-to-github-release-in-a-workflow/
         run: |
           dir
           7z a -tzip -mx9 $PWD/SharpHound.zip $PWD/SharpHound/bin/Release/net462/*
           dir
-          gh release upload ${{github.ref_name}} $PWD/SharpHound.zip
+      - name: Upload release
+        run: gh release upload ${{github.ref_name}} $PWD/SharpHound.zip
         #gh release upload ${{github.event.release.tag_name}} $PWD/SharpHound.zip
         env:
           GITHUB_TOKEN: ${{ github.TOKEN }}
