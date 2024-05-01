@@ -22,14 +22,11 @@ jobs:
         with:
           dotnet-version: 5.0.x
 
-      - name: cd to SharpHound
-        run: cd SharpHound
-
-      - name: Restore dependencies
-        run: dotnet restore .
-
       - name: Build SharpHound
-        run: dotnet build -c Release
+        run:  |
+          cd SharpHound
+          dotnet restore .
+          dotnet build -c Release
 
       - name: Zip
         run: 7z a -tzip -mx9 SharpHound-${{ github.ref_name }}.zip $PWD/bin/Release/net462/*
